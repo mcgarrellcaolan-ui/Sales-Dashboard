@@ -8,7 +8,7 @@ full set of profit, stock and tax-estimate views — entirely in the browser.
 
 ## Why
 
-I run a small reselling business (Stone Island / CP Company / Napapijri / Pokémon, mostly)
+I run a small reselling business (Stone Island / CP Company / Napapijri )
 and kept my books in a spreadsheet. This dashboard reads that spreadsheet and gives me the
 view a proper sales tool would — revenue trends, profit margin, stock on hand, a brand
 breakdown, and a rough self-employment tax estimate — without needing a backend, a database,
