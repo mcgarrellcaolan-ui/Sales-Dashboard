@@ -1,74 +1,63 @@
-# Reseller Sales Dashboard
+# Sales Dashboard
 
-A single-file, privacy-first analytics dashboard for a clothing/collectibles reselling
-side-hustle. Point it at a spreadsheet export of your inventory and it turns it into a
-full set of profit, stock and tax-estimate views — entirely in the browser.
+A dashboard for my clothing resale business (Stone Island, CP Company, Napapijri).
+I keep my stock and sales in an Excel spreadsheet, and this reads that file and shows
+revenue, profit, stock, expenses and an estimate of the tax I owe.
 
-**[Live demo](https://mcgarrellcaolan-ui.github.io/Sales-Dashboard/)** — loads a sample dataset automatically, or drag in your own spreadsheet.
-
-## Why
-
-I run a small reselling business (Stone Island / CP Company / Napapijri )
-and kept my books in a spreadsheet. This dashboard reads that spreadsheet and gives me the
-view a proper sales tool would — revenue trends, profit margin, stock on hand, a brand
-breakdown, and a rough self-employment tax estimate — without needing a backend, a database,
-or a monthly SaaS bill.
+**[Live demo](https://mcgarrellcaolan-ui.github.io/Sales-Dashboard/)** (uses made-up sample data)
 
 ## Features
 
-- **Overview** — YTD revenue, net profit, margin, items sold, current stock value, owner
-  drawings, and a monthly revenue/profit/items-sold chart.
-- **Brand breakdown** — automatic classification of inventory by brand from the item
-  description, with per-brand revenue and profit.
-- **Category rollup** — a dedicated view for any single product category (configurable via
-  a regex), covering both sold and in-stock items.
-- **Expenses & tax** — expense tracking by category and a UK self-employment income tax /
-  Class 4 NIC estimate, with an optional "other taxable income" input for anyone with a
-  second job.
-- **Goals** — simple savings/revenue goal tracking.
-- **Inventory** — a searchable, sortable table of every item, filterable by Sold / In stock,
-  with a visual flag for rows that are missing data (e.g. a sale price entered without a
-  sale date) so they don't silently fall out of your totals.
+- **Overview**: revenue, net profit, margin, items sold, stock value and a monthly chart
+- **Brands**: sales and profit for each brand, worked out from the item description
+- **Expenses & Tax**: expenses by category and a UK self-employed tax estimate
+  (income tax + Class 4 NI)
+- **Goals**: set revenue, profit or sales targets and track progress
+- **Inventory**: search, filter and sort every item
+
+The spreadsheet is read in the browser, so nothing is uploaded anywhere.
+
+## Project structure
+
+```
+index.html            page layout and tabs
+css/style.css         styling (light and dark mode)
+js/helpers.js         formatting and small shared functions
+js/data.js            reads the spreadsheet and saves it in the browser
+js/stats.js           works out totals, brand split and tax
+js/charts.js          bar charts drawn with SVG
+js/pages.js           fills in each tab
+js/goals.js           goals tab
+js/main.js            button handlers and start-up
+lib/xlsx.full.min.js  SheetJS, for reading Excel files
+data/sample-data.xlsx fake data for the demo
+```
 
 ## How it works
 
-- **No backend, no build step.** It's one HTML file with the parsing logic and the
-  [SheetJS](https://sheetjs.com/) library bundled inline. Open it in a browser and it runs.
-- **Nothing leaves your machine.** The spreadsheet you load is parsed client-side with
-  `FileReader` + SheetJS; nothing is uploaded anywhere. That's also why it's safe to host
-  this repo publicly — the code has no access to anyone's real financial data unless they
-  explicitly load their own file into their own browser tab.
-- **Spreadsheet-driven.** All the data — inventory, expenses, returns, salary/drawings —
-  comes from four sheets in an `.xlsx` file (`Inventory Detail`, `Expenses`, `Returns`,
-  `Salary`). [`sample-data.xlsx`](sample-data.xlsx) in this repo shows the expected shape;
-  copy its headers to use it with your own numbers.
+1. **Read** - the user picks an .xlsx file and SheetJS turns each sheet into rows.
+2. **Clean** - each row becomes an object (item, cost, sale price, dates...) and blank rows are skipped.
+3. **Calculate** - `getStats()` adds everything up by month, brand and expense category.
+4. **Show** - each tab is drawn from those totals. Charts are plain SVG, no chart library.
+5. **Save** - the data is kept in `localStorage` so it's still there next time.
 
-## Running it locally
+## Spreadsheet format
 
-No install required:
+The file needs four sheets: `Inventory Detail`, `Expenses`, `Returns` and `Salary`.
+See [data/sample-data.xlsx](data/sample-data.xlsx) for the columns.
+
+## Running it
 
 ```bash
-git clone https://github.com/<your-username>/reseller-sales-dashboard.git
-cd reseller-sales-dashboard
-```
-
-Then just open `index.html` in a browser, or serve the folder with anything static, e.g.:
-
-```bash
+git clone https://github.com/mcgarrellcaolan-ui/Sales-Dashboard.git
+cd Sales-Dashboard
 python -m http.server 8000
 ```
 
-Click **Load / refresh from spreadsheet** and pick `sample-data.xlsx` (or your own file
-in the same format).
+Then open http://localhost:8000.
 
-## Tech
+## Built with
 
-Vanilla JavaScript, inline SVG charts, no framework, no build step, no dependencies beyond
-the bundled SheetJS parser. Everything — state, rendering, chart drawing, UK tax-bracket
-math — is hand-rolled in a single file on purpose, as a constraint: see how far a real,
-useful tool can go without reaching for a framework.
+HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library.
 
-## Disclaimer
-
-The tax figures are estimates only, based on 2024/25 UK income tax and Class 4 National
-Insurance rates, and are not financial or tax advice.
+Tax figures use 2024/25 UK rates and are estimates, not financial advice.
