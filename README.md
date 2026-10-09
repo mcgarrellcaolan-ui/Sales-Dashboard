@@ -48,13 +48,8 @@ See [data/sample-data.xlsx](data/sample-data.xlsx) for the columns.
 
 ## Running it
 
-```bash
-git clone https://github.com/mcgarrellcaolan-ui/Sales-Dashboard.git
-cd Sales-Dashboard
-python -m http.server 8000
-```
-
-Then open http://localhost:8000.
+Download the repo and open `index.html` in your browser. Click **Load spreadsheet**
+and pick `data/sample-data.xlsx` (or your own file in the same format).
 
 ## Built with
 
