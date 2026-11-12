@@ -1,7 +1,7 @@
 # Java backend
 
 A small REST API for the dashboard, written in Java 17 with no frameworks. It reads my sales
-from `data/sales.csv` and returns JSON, which the **Java API** tab on the dashboard shows.
+from the same Excel file as the dashboard (`data/sample-data.xlsx`) and returns JSON, which the **Java API** tab on the dashboard shows.
 
 I wrote the data structures myself to practise what I learned in my Algorithms and Data Structures module:
 
@@ -31,7 +31,7 @@ mvn exec:java
 
 Then open `index.html` and go to the Java API tab. The API runs on port 8080.
 
-## Using my own data
+## Using my own spreadsheet
 
-Save the Inventory sheet as `data/sales.csv` with the columns
-`description,size,boughtOn,cost,soldOn,price,profit` (dates as 2026-07-26).
+Pass the file path when starting it, e.g. `mvn exec:java -Dexec.args="../data/my-file.xlsx"`.
+It reads the `Inventory Detail` sheet, the same one the dashboard uses.

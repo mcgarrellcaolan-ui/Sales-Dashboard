@@ -1,6 +1,6 @@
 package com.cmvapparel.dashboard.service;
 
-import com.cmvapparel.dashboard.io.CsvLoader;
+import com.cmvapparel.dashboard.io.ExcelLoader;
 import com.cmvapparel.dashboard.model.Item;
 import org.junit.jupiter.api.Test;
 
@@ -54,8 +54,8 @@ class SalesServiceTest {
     }
 
     @Test
-    void sampleCsvMatchesWebsite() throws Exception {
-        SalesService real = new SalesService(CsvLoader.load("../data/sales.csv"));
+    void sampleFileMatchesWebsite() throws Exception {
+        SalesService real = new SalesService(ExcelLoader.load("../data/sample-data.xlsx"));
         assertEquals(1659, real.summary().revenue(), 0.001);
         assertEquals(20, real.summary().itemsSold());
         assertEquals(10, real.summary().inStock());

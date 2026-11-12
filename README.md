@@ -34,7 +34,6 @@ js/main.js            button handlers and start-up
 js/api.js             Java API tab (calls the backend)
 lib/xlsx.full.min.js  SheetJS, for reading Excel files
 data/sample-data.xlsx fake data for the demo
-data/sales.csv        the same items as CSV, read by the Java backend
 backend/              Java 17 REST API (Maven project)
 ```
 
