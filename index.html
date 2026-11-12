@@ -31,6 +31,7 @@
     <button data-page="expenses">Expenses &amp; Tax</button>
     <button data-page="goals">Goals</button>
     <button data-page="inventory">Inventory</button>
+    <button data-page="java">Java API</button>
   </nav>
 
   <!-- Overview -->
@@ -178,6 +179,63 @@
     </section>
   </div>
 
+  <!-- Java API (only works when the Java backend is running) -->
+  <div class="page" data-page="java">
+    <section>
+      <h2>Java backend</h2>
+      <div class="card">
+        <div class="filters">
+          <span id="apiStatus" class="empty">Not checked yet</span>
+          <button class="btn small" id="apiRefresh">Check again</button>
+        </div>
+        <p class="note">These numbers come from the Java REST API in the <code>backend</code> folder, not from the browser.
+        Start it by running <code>App.java</code> and it runs on localhost:8080. It reads <code>data/sales.csv</code>.</p>
+      </div>
+    </section>
+
+    <div id="apiContent" hidden>
+      <section>
+        <div class="tiles" id="apiSummary"></div>
+      </section>
+
+      <section>
+        <div class="card">
+          <div class="card-head"><h3>Brands ranked by revenue</h3></div>
+          <div id="apiBrands"></div>
+          <p class="note">Totals kept in a hash table, then ranked with merge sort.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="card">
+          <div class="card-head">
+            <h3>Most profitable sales</h3>
+            <div class="switch" id="apiTopN">
+              <button data-value="3">Top 3</button>
+              <button data-value="5" class="active">Top 5</button>
+              <button data-value="10">Top 10</button>
+            </div>
+          </div>
+          <div id="apiTop"></div>
+          <p class="note">Found with a min-heap that only ever holds N items: O(n log N).</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="card">
+          <div class="card-head"><h3>Sales between two dates</h3></div>
+          <div class="filters">
+            <input type="date" id="apiFrom">
+            <input type="date" id="apiTo">
+            <button class="btn small primary" id="apiRange">Search</button>
+          </div>
+          <div id="apiSales"></div>
+          <p class="note">Sales are sorted by date once, then binary search finds the start and end: O(log n).</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
 </div>
 
 <div id="tooltip"></div>
@@ -191,6 +249,7 @@
 <script src="js/charts.js"></script>
 <script src="js/pages.js"></script>
 <script src="js/goals.js"></script>
+<script src="js/api.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
