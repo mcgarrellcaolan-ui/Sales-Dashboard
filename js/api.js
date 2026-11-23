@@ -2,6 +2,7 @@
 
 var API_URL = "http://localhost:8080/api";
 var apiTopN = 5;
+var apiSlowDays = 60;
 
 function getJson(path) {
   return fetch(API_URL + path).then(function (res) {
@@ -65,6 +66,20 @@ function loadApiSales() {
   });
 }
 
+function loadApiSlow() {
+  getJson("/slow-stock?days=" + apiSlowDays).then(function (items) {
+    var tiedUp = 0;
+    items.forEach(function (i) { tiedUp += i.cost; });
+    var line = make("p", { class: "empty", text: items.length + " items, " + money(tiedUp) + " tied up in stock" });
+    var rows = items.map(function (i) {
+      return [i.description, i.brand, i.boughtOn, count(i.daysInStock), money(i.cost)];
+    });
+    var columns = [{ label: "Item" }, { label: "Brand" }, { label: "Bought" },
+      { label: "Days in stock", num: true }, { label: "Cost", num: true }];
+    $("apiSlow").replaceChildren(line, makeTable(columns, rows));
+  });
+}
+
 function loadApi() {
   $("apiStatus").textContent = "Connecting to the Java API...";
   getJson("/summary").then(function (s) {
@@ -74,6 +89,7 @@ function loadApi() {
     getJson("/brands").then(showApiBrands);
     loadApiTop();
     loadApiSales();
+    loadApiSlow();
   }).catch(function () {
     $("apiStatus").textContent = "The Java API isn't running. Start it from the backend folder to see this tab.";
     $("apiContent").hidden = true;
@@ -92,3 +108,4 @@ $("tabs").addEventListener("click", function (e) {
 $("apiRefresh").addEventListener("click", loadApi);
 $("apiRange").addEventListener("click", loadApiSales);
 onSwitch("apiTopN", function (value) { apiTopN = Number(value); loadApiTop(); });
+onSwitch("apiSlowDays", function (value) { apiSlowDays = Number(value); loadApiSlow(); });

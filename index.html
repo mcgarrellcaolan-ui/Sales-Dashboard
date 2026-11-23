@@ -202,7 +202,7 @@
         <div class="card">
           <div class="card-head"><h3>Brands ranked by revenue</h3></div>
           <div id="apiBrands"></div>
-          <p class="note">Totals kept in a hash table, then ranked with merge sort.</p>
+          <p class="note">Totals kept in a hash table, then ranked by revenue.</p>
         </div>
       </section>
 
@@ -231,6 +231,21 @@
           </div>
           <div id="apiSales"></div>
           <p class="note">Sales are sorted by date once, then binary search finds the start and end: O(log n).</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="card">
+          <div class="card-head">
+            <h3>Slow stock</h3>
+            <div class="switch" id="apiSlowDays">
+              <button data-value="30">30+ days</button>
+              <button data-value="60" class="active">60+ days</button>
+              <button data-value="90">90+ days</button>
+            </div>
+          </div>
+          <div id="apiSlow"></div>
+          <p class="note">Unsold items that have been in stock too long, oldest first (merge sort on the date bought). Worth repricing or bundling.</p>
         </div>
       </section>
     </div>
