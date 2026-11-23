@@ -1,0 +1,39 @@
+SAMPLE DATA - RESELLER INVENTORY DETAIL  |  Demo Tax Year 6 Apr 2026 - 5 Apr 2027,,,,,,,,,
+Blue cells = enter data. Items with purchase date before 6 Apr 2026 are Opening Stock. Leave Sale Date/Price blank if unsold.,,,,,,,,,
+#,ITEM DESCRIPTION,SIZE,"PURCHASE
+DATE","PURCHASE
+COST","SALE
+DATE","SELLING
+PRICE","POSTAGE
+COST","SELLING
+FEES",PROFIT
+1,Black Stone Island crewneck jumper,L,01 Jun 2026,28.5,07 Jun 2026,65,0,0,36.5
+2,Navy CP Company overshirt jacket,M,04 Jun 2026,42,07 Jun 2026,95,0,0,53
+3,Khaki Napapijri Skidoo jacket,XL,07 Jun 2026,55,18 Jun 2026,120,0,0,65
+4,White Stone Island polo shirt,L,10 Jun 2026,18,20 Jun 2026,42,0,0,24
+5,Stone Island ghost piece overshirt,L,13 Jun 2026,110,23 Jun 2026,180,0,0,70
+6,Grey CP Company lens hoodie,XXL,16 Jun 2026,35,23 Jun 2026,78,0,0,43
+7,Stone Island compass badge t-shirt,M,19 Jun 2026,14,25 Jun 2026,34,0,0,20
+8,Napapijri Rainforest jacket,L,22 Jun 2026,38,12 Jul 2026,82,0,0,44
+9,Napapijri fleece half zip,M,25 Jun 2026,38,30 Jun 2026,58,0,0,20
+10,Blue Stone Island quarter zip,XL,28 Jun 2026,32,19 Jul 2026,70,0,0,38
+11,CP Company Chrome-R jacket,L,01 Jul 2026,60,17 Jul 2026,135,0,0,75
+12,Black Napapijri Rector jacket,M,04 Jul 2026,29,08 Jul 2026,64,0,0,35
+13,Stone Island cargo shorts,32,07 Jul 2026,22,10 Jul 2026,48,0,0,26
+14,CP Company lens sweatshirt,L,10 Jul 2026,45,15 Jul 2026,70,0,0,25
+15,Green CP Company t-shirt,XL,13 Jul 2026,12,22 Jul 2026,28,0,0,16
+16,Stone Island reflective jacket,L,16 Jul 2026,70,26 Jul 2026,150,0,0,80
+17,Napapijri logo t-shirt,M,19 Jul 2026,10,07 Aug 2026,25,0,0,15
+18,Stone Island nylon metal jacket,XL,22 Jul 2026,95,25 Jul 2026,150,0,0,55
+19,Stone Island fleece hoodie,XXL,25 Jul 2026,26,14 Aug 2026,60,0,0,34
+20,CP Company goggle jacket,L,28 Jul 2026,48,06 Aug 2026,105,0,0,57
+21,Black Stone Island joggers,M,31 Jul 2026,20,,,0,0,
+22,White Napapijri gilet,L,03 Aug 2026,24,,,0,0,
+23,Napapijri Skidoo fleece,M,06 Aug 2026,36,,,0,0,
+24,Stone Island slim polo,XL,09 Aug 2026,16,,,0,0,
+25,CP Company beanie,,12 Aug 2026,9,,,0,0,
+26,Navy Stone Island zip hoodie,L,15 Aug 2026,33,,,0,0,
+27,Grey Napapijri backpack,,18 Aug 2026,15,,,0,0,
+28,Stone Island archive print tee,M,21 Aug 2026,13,,,0,0,
+29,CP Company cargo pants,32,24 Aug 2026,27,,,0,0,
+30,Stone Island crinkle reps jacket,L,27 Aug 2026,90,,,0,0,

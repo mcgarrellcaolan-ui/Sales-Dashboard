@@ -14,6 +14,8 @@ revenue, profit, stock, expenses and an estimate of the tax I owe.
   (income tax + Class 4 NI)
 - **Goals**: set revenue, profit or sales targets and track progress
 - **Inventory**: search, filter and sort every item
+- **Stock Manager (Java)**: a console app that reads the same stock, lets me mark items as sold
+  and shows a slow stock report (see [stock-manager/README.md](stock-manager/README.md))
 
 The spreadsheet is read in the browser, so nothing is uploaded anywhere.
 
@@ -31,6 +33,8 @@ js/goals.js           goals tab
 js/main.js            button handlers and start-up
 lib/xlsx.full.min.js  SheetJS, for reading Excel files
 data/sample-data.xlsx fake data for the demo
+data/sample-data.csv  the same stock saved as CSV, for the Java app
+stock-manager/        Java console app (see its README)
 ```
 
 ## How it works
@@ -53,6 +57,7 @@ and pick `data/sample-data.xlsx` (or your own file in the same format).
 
 ## Built with
 
-HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library, used to read the Excel file.
+- Dashboard: HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library, used to read the Excel file.
+- Stock Manager: Java 17, with JUnit 5 for tests.
 
 Tax figures use 2024/25 UK rates and are estimates, not financial advice.
