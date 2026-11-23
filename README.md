@@ -14,8 +14,6 @@ revenue, profit, stock, expenses and an estimate of the tax I owe.
   (income tax + Class 4 NI)
 - **Goals**: set revenue, profit or sales targets and track progress
 - **Inventory**: search, filter and sort every item
-- **Java API**: a Java REST backend with my own hash table, merge sort, binary search
-  and min-heap (see [backend/README.md](backend/README.md))
 
 The spreadsheet is read in the browser, so nothing is uploaded anywhere.
 
@@ -31,10 +29,8 @@ js/charts.js          bar charts drawn with SVG
 js/pages.js           fills in each tab
 js/goals.js           goals tab
 js/main.js            button handlers and start-up
-js/api.js             Java API tab (calls the backend)
 lib/xlsx.full.min.js  SheetJS, for reading Excel files
 data/sample-data.xlsx fake data for the demo
-backend/              Java 17 REST API (Maven project)
 ```
 
 ## How it works
@@ -55,11 +51,8 @@ See [data/sample-data.xlsx](data/sample-data.xlsx) for the columns.
 Download the repo and open `index.html` in your browser. Click **Load spreadsheet**
 and pick `data/sample-data.xlsx` (or your own file in the same format).
 
-To try the Java backend as well, see [backend/README.md](backend/README.md).
-
 ## Built with
 
-- Front end: HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library.
-- Backend: Java 17 and Maven, with JUnit 5 for tests. No frameworks, and the data structures are written by hand.
+HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library, used to read the Excel file.
 
 Tax figures use 2024/25 UK rates and are estimates, not financial advice.
