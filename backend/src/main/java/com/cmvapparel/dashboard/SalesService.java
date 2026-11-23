@@ -19,7 +19,7 @@ public class SalesService {
             }
         }
         // sorted once here so binary search can be used in soldBetween
-        soldByDate = MergeSort.sortByDate(sold);
+        soldByDate = MergeSort.sortBySoldDate(sold);
     }
 
     public double getRevenue() {
@@ -91,5 +91,17 @@ public class SalesService {
             result.add(soldByDate.get(i));
         }
         return result;
+    }
+
+    // Slow-stock alert: unsold items that have been in stock for at least this many days,
+    // oldest first. Tells me what to reprice or bundle so money isn't stuck in old stock.
+    public ArrayList<Item> getSlowStock(int days, LocalDate today) {
+        ArrayList<Item> slow = new ArrayList<>();
+        for (Item item : items) {
+            if (!item.isSold() && item.getBoughtOn() != null && item.getDaysInStock(today) >= days) {
+                slow.add(item);
+            }
+        }
+        return MergeSort.sortByBoughtDate(slow);
     }
 }

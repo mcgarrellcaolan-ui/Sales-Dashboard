@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 // Reads the "Inventory Detail" sheet using Apache POI.
-// Columns: B description, F date sold, G sale price, J profit
+// Columns: B description, D date bought, E cost, F date sold, G sale price, J profit
 public class ExcelReader {
 
     public static ArrayList<Item> read(String file) throws Exception {
@@ -35,6 +35,8 @@ public class ExcelReader {
 
             items.add(new Item(
                     description.getStringCellValue().trim(),
+                    getDate(row.getCell(3)),
+                    getNumber(cost),
                     getDate(row.getCell(5)),
                     getNumber(row.getCell(6)),
                     getNumber(row.getCell(9))));

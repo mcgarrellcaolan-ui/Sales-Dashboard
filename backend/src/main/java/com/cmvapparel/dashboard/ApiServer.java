@@ -16,6 +16,7 @@ import java.util.ArrayList;
 //   /api/brands
 //   /api/top?n=5
 //   /api/sales?from=2026-07-01&to=2026-07-31
+//   /api/slow-stock?days=60
 public class ApiServer implements HttpHandler {
 
     private SalesService sales;
@@ -61,6 +62,14 @@ public class ApiServer implements HttpHandler {
                 send(exchange, 400, "{\"error\":\"dates should look like 2026-07-01\"}");
             }
 
+        } else if (path.equals("/api/slow-stock")) {
+            try {
+                int days = Integer.parseInt(getParam(exchange, "days", "60"));
+                send(exchange, 200, slowStockToJson(sales.getSlowStock(days, LocalDate.now())));
+            } catch (NumberFormatException e) {
+                send(exchange, 400, "{\"error\":\"days must be a whole number\"}");
+            }
+
         } else {
             send(exchange, 404, "{\"error\":\"not found\"}");
         }
@@ -93,6 +102,22 @@ public class ApiServer implements HttpHandler {
                     + ",\"soldOn\":\"" + item.getSoldOn() + "\""
                     + ",\"price\":" + round(item.getPrice())
                     + ",\"profit\":" + round(item.getProfit()) + "}";
+        }
+        return json + "]";
+    }
+
+    private String slowStockToJson(ArrayList<Item> items) {
+        String json = "[";
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            if (i > 0) {
+                json += ",";
+            }
+            json += "{\"description\":\"" + item.getDescription().replace("\"", "\\\"") + "\""
+                    + ",\"brand\":\"" + item.getBrand() + "\""
+                    + ",\"boughtOn\":\"" + item.getBoughtOn() + "\""
+                    + ",\"cost\":" + round(item.getCost())
+                    + ",\"daysInStock\":" + item.getDaysInStock(LocalDate.now()) + "}";
         }
         return json + "]";
     }

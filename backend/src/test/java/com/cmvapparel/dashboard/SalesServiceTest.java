@@ -9,13 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SalesServiceTest {
 
+    private static final LocalDate BOUGHT = LocalDate.of(2026, 5, 1);
+
     private SalesService makeService() {
         ArrayList<Item> items = new ArrayList<>();
-        items.add(new Item("CP jacket", LocalDate.of(2026, 7, 20), 100, 40));
-        items.add(new Item("SI overshirt", LocalDate.of(2026, 6, 5), 150, 80));
-        items.add(new Item("Napa fleece", null, 0, 0)); // not sold yet
-        items.add(new Item("SI jumper", LocalDate.of(2026, 7, 2), 60, 20));
-        items.add(new Item("CP goggle jacket", LocalDate.of(2026, 8, 15), 200, 90));
+        items.add(new Item("CP jacket", BOUGHT, 60, LocalDate.of(2026, 7, 20), 100, 40));
+        items.add(new Item("SI overshirt", BOUGHT, 70, LocalDate.of(2026, 6, 5), 150, 80));
+        items.add(new Item("Napa fleece", BOUGHT, 30, null, 0, 0)); // not sold yet
+        items.add(new Item("SI jumper", BOUGHT, 40, LocalDate.of(2026, 7, 2), 60, 20));
+        items.add(new Item("CP goggle jacket", BOUGHT, 110, LocalDate.of(2026, 8, 15), 200, 90));
         return new SalesService(items);
     }
 
@@ -51,6 +53,35 @@ class SalesServiceTest {
     }
 
     @Test
+    void slowStockShowsOldUnsoldItemsOnly() {
+        LocalDate today = LocalDate.of(2026, 11, 1);
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Item("bought last week", today.minusDays(7), 20, null, 0, 0));
+        items.add(new Item("bought 90 days ago", today.minusDays(90), 30, null, 0, 0));
+        items.add(new Item("bought 120 days ago", today.minusDays(120), 40, null, 0, 0));
+        items.add(new Item("old but sold", today.minusDays(200), 50, today.minusDays(10), 90, 40));
+
+        ArrayList<Item> slow = new SalesService(items).getSlowStock(60, today);
+
+        assertEquals(2, slow.size());
+        assertEquals("bought 120 days ago", slow.get(0).getDescription()); // oldest first
+        assertEquals("bought 90 days ago", slow.get(1).getDescription());
+        assertEquals(90, slow.get(1).getDaysInStock(today));
+    }
+
+    @Test
+    void slowStockIncludesItemExactlyOnTheLimit() {
+        LocalDate today = LocalDate.of(2026, 11, 1);
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Item("exactly 60 days", today.minusDays(60), 20, null, 0, 0));
+        items.add(new Item("59 days", today.minusDays(59), 20, null, 0, 0));
+
+        ArrayList<Item> slow = new SalesService(items).getSlowStock(60, today);
+        assertEquals(1, slow.size());
+        assertEquals("exactly 60 days", slow.get(0).getDescription());
+    }
+
+    @Test
     void brands() {
         assertEquals("Stone Island", Brand.of("Stone Island ghost overshirt"));
         assertEquals("Stone Island", Brand.of("navy SI jumper"));
@@ -73,5 +104,9 @@ class SalesServiceTest {
         assertEquals(1659, service.getRevenue(), 0.001);
         assertEquals(20, service.getItemsSold());
         assertEquals(10, service.getInStock());
+
+        // the 10 unsold items were bought between 31 July and 27 August
+        assertEquals(10, service.getSlowStock(60, LocalDate.of(2026, 11, 1)).size());
+        assertEquals(0, service.getSlowStock(60, LocalDate.of(2026, 9, 1)).size());
     }
 }

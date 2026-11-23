@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataStructuresTest {
 
     private Item sale(String name, int julyDay, double profit) {
-        return new Item(name, LocalDate.of(2026, 7, julyDay), 100, profit);
+        return new Item(name, LocalDate.of(2026, 6, 1), 50, LocalDate.of(2026, 7, julyDay), 100, profit);
     }
 
     @Test
@@ -65,12 +65,12 @@ class DataStructuresTest {
         list.add(sale("b", 9, 0));
         list.add(sale("b2", 9, 0));
 
-        ArrayList<Item> sorted = MergeSort.sortByDate(list);
+        ArrayList<Item> sorted = MergeSort.sortBySoldDate(list);
         assertEquals("a", sorted.get(0).getDescription());
         assertEquals("b", sorted.get(1).getDescription());
         assertEquals("b2", sorted.get(2).getDescription()); // same date stays in the same order
         assertEquals("c", sorted.get(3).getDescription());
-        assertEquals(0, MergeSort.sortByDate(new ArrayList<>()).size());
+        assertEquals(0, MergeSort.sortBySoldDate(new ArrayList<>()).size());
     }
 
     @Test
