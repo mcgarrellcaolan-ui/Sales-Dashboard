@@ -1,16 +1,29 @@
 # Java backend
 
-A small REST API for the dashboard, written in Java 17 with no frameworks. It reads my sales
-from the same Excel file as the dashboard (`data/sample-data.xlsx`) and returns JSON, which the **Java API** tab on the dashboard shows.
+A small REST API for the dashboard, written in Java 17. It reads my sales from the same
+Excel file as the dashboard (`data/sample-data.xlsx`) and returns JSON, which the
+**Java API** tab on the dashboard shows.
 
 I wrote the data structures myself to practise what I learned in my Algorithms and Data Structures module:
 
 | Data structure | Used for | Big-O |
 |---|---|---|
 | Hash table | adding up sales for each brand | O(1) average |
-| Merge sort | ranking brands, sorting sales by date | O(n log n) |
+| Merge sort | sorting sales by date | O(n log n) |
 | Binary search | finding sales between two dates | O(log n) |
 | Min-heap | top 5 most profitable sales | O(n log k) |
+
+## Files
+
+| File | What it does |
+|---|---|
+| `App.java` | starts everything |
+| `ExcelReader.java` | reads the spreadsheet with Apache POI |
+| `Item.java` | one item from the stock list |
+| `Brand.java` | works out the brand from the description |
+| `SalesService.java` | the totals for each endpoint |
+| `ApiServer.java` | the web server, using Java's built-in `HttpServer` |
+| `HashTable.java`, `MergeSort.java`, `BinarySearch.java`, `MinHeap.java` | my data structures |
 
 ## Endpoints
 

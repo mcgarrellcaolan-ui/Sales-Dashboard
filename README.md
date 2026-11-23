@@ -60,6 +60,6 @@ To try the Java backend as well, see [backend/README.md](backend/README.md).
 ## Built with
 
 - Front end: HTML, CSS and JavaScript, with no framework or build step. SheetJS is the only library.
-- Backend: Java 17 and Maven, with JUnit 5 for tests. No frameworks, and the data structures are written by hand.
+- Backend: Java 17 and Maven, with Apache POI to read the spreadsheet and JUnit 5 for tests. The data structures are written by hand.
 
 Tax figures use 2024/25 UK rates and are estimates, not financial advice.
